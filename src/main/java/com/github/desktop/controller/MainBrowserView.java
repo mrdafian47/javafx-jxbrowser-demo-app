@@ -41,7 +41,7 @@ import static com.teamdev.jxbrowser.engine.RenderingMode.HARDWARE_ACCELERATED;
 @FxmlView
 public class MainBrowserView {
 
-    private static final String DEFAULT_URL_ADDRESS = "https://demo.asliri.id/";
+    private static final String DEFAULT_URL_ADDRESS = "https://html5test.teamdev.com";
 
     @Value("${app.license.jx.browser}")
     private String jxBrowserLicenseKey;
