@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'org.springframework.boot' version '2.7.18'
+    id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = 'com.github.desktop'
@@ -13,9 +15,39 @@ java {
 
 repositories {
     mavenCentral()
+    maven {
+        name = "JxBrowser"
+        url 'https://europe-maven.pkg.dev/jxbrowser/releases'
+        name = 'com.teamdev'
+    }
 }
 
 dependencies {
+    // Web MVC
+    implementation("org.springframework.boot:spring-boot-starter-web") {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+
+    // Logging
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+
+    // SpringBoot JavaFX
+    implementation 'net.rgielen:javafx-weaver-spring-boot-starter:1.3.0'
+
+    // JavaFX
+    implementation 'org.openjfx:javafx-controls:17.0.12'
+    implementation 'org.openjfx:javafx-fxml:17.0.12'
+    implementation 'org.openjfx:javafx-web:17.0.12'
+
+    // JX Browser
+    implementation 'com.teamdev.jxbrowser:jxbrowser-cross-platform:8.2.1'
+    implementation 'com.teamdev.jxbrowser:jxbrowser-javafx:8.2.1'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // Test
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
