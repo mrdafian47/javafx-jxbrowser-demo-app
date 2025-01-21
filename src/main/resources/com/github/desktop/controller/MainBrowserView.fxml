@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.github.desktop.controller.MainBrowserView"
+            prefHeight="800.0" prefWidth="1200.0">
+
+    <!-- Top bar -->
+    <top>
+        <HBox spacing="16" style="-fx-padding: 8; -fx-background-color: #f4f4f4;">
+
+            <!-- Left side: Navigation buttons -->
+            <HBox spacing="5">
+                <Button id="backButton" onAction="#onBackButton">
+                    <graphic>
+                        <ImageView fx:id="backIcon"/>
+                    </graphic>
+                </Button>
+                <Button id="forwardButton" onAction="#onForwardButton">
+                    <graphic>
+                        <ImageView fx:id="forwardIcon"/>
+                    </graphic>
+                </Button>
+                <Button id="reloadButton" onAction="#onReloadButton">
+                    <graphic>
+                        <ImageView fx:id="reloadIcon"/>
+                    </graphic>
+                </Button>
+            </HBox>
+
+            <!-- Center: URL input field -->
+            <HBox HBox.hgrow="ALWAYS" alignment="CENTER">
+                <TextField fx:id="inputUrlAddress" id="urlField" promptText="Enter URL" HBox.hgrow="ALWAYS" />
+            </HBox>
+
+            <!-- Right side: Options menu -->
+            <HBox alignment="CENTER_RIGHT">
+                <MenuButton id="optionsMenu" text="☰">
+                    <items>
+                        <MenuItem text="Settings"/>
+                        <MenuItem text="Help"/>
+                        <MenuItem text="About"/>
+                    </items>
+                </MenuButton>
+            </HBox>
+
+        </HBox>
+    </top>
+
+    <!-- Main content area -->
+    <center>
+
+        <VBox fx:id="contentWebView" style="-fx-background-color: #ffffff;" VBox.vgrow="ALWAYS">
+            <!-- Placeholder for web content -->
+            <Label fx:id="placeholderLoading" text="Welcome!" style="-fx-font-size: 16; -fx-text-fill: gray;"/>
+        </VBox>
+
+    </center>
+
+</BorderPane>

@@ -34,7 +34,7 @@ public class DashboardView {
     }
 
     private void onNavigateToBrowser(ActionEvent actionEvent) {
-        Node node = fxWeaver.loadView(BrowserView.class);
+        Node node = fxWeaver.loadView(MainBrowserView.class);
         contentDashboardView.getChildren().clear();
         contentDashboardView.getChildren().add(node);
         setTitle("Browser");

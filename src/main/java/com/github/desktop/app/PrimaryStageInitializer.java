@@ -1,6 +1,6 @@
 package com.github.desktop.app;
 
-import com.github.desktop.controller.DashboardView;
+import com.github.desktop.controller.MainBrowserView;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -25,10 +25,10 @@ public class PrimaryStageInitializer implements ApplicationListener<StageReadyEv
     public void onApplicationEvent(StageReadyEvent event) {
         Stage stage = event.getStage();
 
-        Parent parent = fxWeaver.loadView(DashboardView.class);
+        Parent parent = fxWeaver.loadView(MainBrowserView.class);
         Scene scene = new Scene(parent);
         stage.setScene(scene);
-        stage.setTitle("Data Home");
+        stage.setTitle("Browser");
         stage.show();
     }
 }
