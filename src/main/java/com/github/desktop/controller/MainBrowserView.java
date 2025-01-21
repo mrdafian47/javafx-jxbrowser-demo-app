@@ -84,6 +84,7 @@ public class MainBrowserView {
 
     @FXML
     public void onBackButton(ActionEvent actionEvent) {
+        log.debug("Click Back Button");
         if (browser.navigation().canGoBack()) {
             browser.navigation().goBack();
         }
@@ -91,6 +92,7 @@ public class MainBrowserView {
 
     @FXML
     public void onForwardButton(ActionEvent actionEvent) {
+        log.debug("Click Forward Button");
         if (browser.navigation().canGoForward()) {
             browser.navigation().goForward();
         }
@@ -98,6 +100,7 @@ public class MainBrowserView {
 
     @FXML
     public void onReloadButton(ActionEvent actionEvent) {
+        log.debug("Click Reload Button");
         browser.navigation().reload();
     }
 
@@ -161,16 +164,25 @@ public class MainBrowserView {
 
         network.on(NetworkChanged.class, e -> {
             if (e.connectionType() == ConnectionType.TYPE_NONE) {
-                Platform.runLater(() -> placeholderLoading.textProperty().set("No connection"));
+                Platform.runLater(() -> {
+                    placeholderLoading.textProperty().set("No connection");
+                    placeholderLoading.visibleProperty().set(true);
+                });
             }
         });
 
         network.on(ResponseStarted.class, (event) -> {
-            Platform.runLater(() -> placeholderLoading.textProperty().set("Loading content..."));
+            Platform.runLater(() -> {
+                placeholderLoading.textProperty().set("Loading content...");
+                placeholderLoading.visibleProperty().set(true);
+            });
         });
 
         network.on(ResponseBytesReceived.class, event -> {
-            Platform.runLater(() -> placeholderLoading.textProperty().set(""));
+            Platform.runLater(() -> {
+                placeholderLoading.textProperty().set("");
+                placeholderLoading.visibleProperty().set(false);
+            });
         });
     }
 
