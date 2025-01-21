@@ -10,6 +10,7 @@ import com.teamdev.jxbrowser.engine.event.EngineCrashed;
 import com.teamdev.jxbrowser.media.MediaDevice;
 import com.teamdev.jxbrowser.media.MediaDeviceType;
 import com.teamdev.jxbrowser.media.MediaDevices;
+import com.teamdev.jxbrowser.navigation.event.FrameLoadFinished;
 import com.teamdev.jxbrowser.net.ConnectionType;
 import com.teamdev.jxbrowser.net.Network;
 import com.teamdev.jxbrowser.net.event.NetworkChanged;
@@ -21,11 +22,13 @@ import com.teamdev.jxbrowser.view.javafx.BrowserView;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j2;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Value;
@@ -135,6 +138,7 @@ public class MainBrowserView {
         EngineOptions engineOptions = EngineOptions.newBuilder(HARDWARE_ACCELERATED)
                 .language(Language.ENGLISH_US)
                 .disableTouchMenu()
+                .disableSandbox()
                 .build();
 
         engine = Engine.newInstance(engineOptions);
@@ -179,6 +183,7 @@ public class MainBrowserView {
         });
 
         network.on(ResponseBytesReceived.class, event -> {
+            setTitle(browser.title());
             Platform.runLater(() -> {
                 placeholderLoading.textProperty().set("");
                 placeholderLoading.visibleProperty().set(false);
@@ -192,11 +197,11 @@ public class MainBrowserView {
 
         // Get all available video devices, e.g. web cameras.
         List<MediaDevice> videoDevices = mediaDevices.list(MediaDeviceType.VIDEO_DEVICE);
-        log.debug("List Video Devices: {}", videoDevices);
+        log.debug("List Video Devices: {}", videoDevices.size());
 
         // Get all available audio devices, e.g. microphones.
         List<MediaDevice> audioDevices = mediaDevices.list(MediaDeviceType.AUDIO_DEVICE);
-        log.debug("List Audio Devices: {}", audioDevices);
+        log.debug("List Audio Devices: {}", audioDevices.size());
     }
 
     private void setupBrowser() {
@@ -209,6 +214,11 @@ public class MainBrowserView {
 
         browser.on(MediaStreamCaptureStopped.class, e -> {
             log.debug("Stopped Capturing: {}", e.mediaStreamType());
+        });
+
+        browser.navigation().on(FrameLoadFinished.class, event -> {
+            var url = event.url();
+            setAddressBar(url);
         });
     }
 
@@ -233,6 +243,19 @@ public class MainBrowserView {
             imageView.setFitWidth(16.0);
             imageView.setFitHeight(16.0);
             imageView.setPreserveRatio(true);
+        }
+    }
+
+    private void setAddressBar(String url) {
+        Platform.runLater(() -> inputUrlAddress.textProperty().set(url));
+    }
+
+    private void setTitle(String title) {
+        Scene scene = contentWebView.getScene();
+        if (scene != null) {
+            if (scene.getWindow() instanceof Stage stage) {
+                Platform.runLater(() -> stage.setTitle(title));
+            }
         }
     }
 }
