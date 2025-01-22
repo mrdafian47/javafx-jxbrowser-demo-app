@@ -1,6 +1,6 @@
 # JavaFX JX-Browser Demo App
 
-A lightweight desktop browser application built with JavaFX, Java 17 (Liberica FX), and Gradle. This app provides essential browsing functionality, such as navigating to websites, reloading pages, and moving backward and forward through your browsing history. Additionally, it supports access to the camera and microphone, making it suitable for modern web applications that require multimedia input.
+A lightweight desktop browser application built with JavaFX, Java 17 and Gradle. This app provides essential browsing functionality, such as navigating to websites, reloading pages, and moving backward and forward through your browsing history. Additionally, it supports access to the camera and microphone, making it suitable for modern web applications that require multimedia input.
 
 ---
 
@@ -15,12 +15,12 @@ A lightweight desktop browser application built with JavaFX, Java 17 (Liberica F
 ## Technologies Used
 
 * **JavaFX**: Provides a modern and flexible UI framework for building desktop applications.
-* **Liberica FX**: A JDK distribution that bundles JavaFX for easy deployment.
+* **Eclipse Temurin**: A JDK distribution that bundles JavaFX for easy deployment.
 * **Gradle**: A powerful build automation tool for compiling, packaging, and managing dependencies.
 * **WebView**: The core component used for rendering web content.
 
 ## Prerequisites
-* **Java 17**: Ensure you have the Liberica JDK 17 installed (or any JDK with JavaFX support).
+* **Java 17**: Ensure you have the JDK 17 installed (or any JDK with JavaFX support).
 * **Gradle**: Required for building and running the project.
 
 ## Getting Started
